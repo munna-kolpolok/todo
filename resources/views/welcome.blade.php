@@ -96,9 +96,6 @@
                 }
             });
 
-
-
-
           } );
 
 
@@ -108,66 +105,14 @@
     <body>
         
         <div id="wrapper" class="clearfix">
-
-            <!-- <p align="center">To Do List</p> -->
-            <!-- <div class="row">
-                <div class="col-md-4">
-                    <p>To Do List</p>
-                    @foreach($works as $work)
-                        @if($work->status=='1')
-                        <div class="card">
-                          <div class="container">
-                            <p>{{ $work->description or null }}</p>
-                            <label><i class="fa fa-user" aria-hidden="true"></i></label>
-                            <a href="{{ url('status/2/'.$work->id) }}" class="btn-primary btn-sm">In Work</a>
-                            <a href="{{ url('status/3/'.$work->id) }}"class="btn-success btn-sm">Done</a>
-                          </div>
-                        </div>
-                        @endif
-                    @endforeach
-                </div>
-                <div class="col-md-4">
-                    <p>In Work</p>
-
-                    @foreach($works as $work)
-                        @if($work->status=='2')
-                        <div class="card">
-                          <div class="container">
-                            <p>{{ $work->description or null }}</p>
-                            <label><i class="fa fa-user" aria-hidden="true"></i></label>
-                            <a href="{{ url('status/1/'.$work->id) }}" class="btn-primary btn-sm">Todo List</a>
-                            <a href="{{ url('status/3/'.$work->id) }}"class="btn-success btn-sm">Done</a>
-                          </div>
-                        </div>
-                        @endif
-                    @endforeach
-                </div>
-                <div class="col-md-4">
-                    <p>Done</p>
-                    @foreach($works as $work)
-                        @if($work->status=='3')
-                        <div class="card">
-                          <div class="container">
-                            <p>{{ $work->description or null }}</p>
-                            <label><i class="fa fa-user" aria-hidden="true"></i></label>
-                            <a href="{{ url('status/1/'.$work->id) }}" class="btn-primary btn-sm">Todo List</a>
-                            <a href="{{ url('status/2/'.$work->id) }}"class="btn-success btn-sm">In Work</a>
-                          </div>
-                        </div>
-                        @endif
-                    @endforeach
-                    <button class="btn btn-primary" data-toggle="modal" data-target="#AddModal">Add</button>
-                </div>
-            </div> -->
-
-            <!-- 2nd version -->
             <div class="row">
+                <!-- to do list start -->
                 <div class="col-md-4">
                     <p>To Do List</p>
                     <ul id="sortable">
                         @foreach($works as $work)
                           @if($work->status=='1')
-                          <li class="ui-state-default"  data-id="{{ $work->id }}">{{ $work->description or null }}
+                          <li class="ui-state-default"  data-id="{{ $work->id }}" class="droptarget" ondrop="drop(event)" ondragover="allowDrop(event)">{{ $work->description or null }}
                             <br>
                             <span><i class="fa fa-user fa-lg" aria-hidden="true"></i></label></span>
                             <a href="{{ url('status/2/'.$work->id) }}" class="btn-primary btn-sm">In Work</a>
@@ -178,7 +123,9 @@
                         @endforeach
                     </ul>
                 </div>
+                <!-- to do list end -->
 
+                <!-- in work start -->
                 <div class="col-md-4">
                     <ul id="sortable-in-work">
                         <p>In Work</p>
@@ -193,10 +140,10 @@
                           @endif
                         @endforeach
                     </ul>
-
-                    <div id="dropzone"></div>
                 </div>
+                <!-- in work end -->
 
+                <!-- done start -->
                 <div class="col-md-4">
                     <p>Done</p>
                     <ul id="sortable-done">
@@ -213,15 +160,13 @@
                     </ul>
                     <button class="btn btn-primary" data-toggle="modal" data-target="#AddModal">Add</button>
                 </div>
-                
+                <!-- done end -->
             </div>
-            
-
         </div>
         
         
 
-        
+        <!-- modal start -->
         <div class="modal fade" id="AddModal" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -248,6 +193,7 @@
                 </form>
             </div>
         </div>
+        <!-- modal end -->
         
     </div>
 
@@ -256,38 +202,5 @@
     <script src="{{ asset('la-assets/js/bootstrap.min.js') }}" type="text/javascript"></script>
 
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js'></script>
-
-    <script type="text/javascript">
-        $('.drag').draggable({
-        appendTo: 'body',
-        helper: 'clone'
-    });
-    $('#dropzone').sortable({
-        items: '.drop-item',
-        sort: function () {
-            $(this).removeClass("active");
-        }
-    })
-
-        $('#dropzone').droppable({
-     activeClass: 'active',
-     hoverClass: 'hover',
-     accept: ":not(.ui-sortable-helper)", // Reject clones generated by sortable
-     drop: function (e, ui) {
-     var $el = $('<div class="drop-item">' + ui.draggable.text() + '</div>');
-     $el.append($('<button type="button" class="btn btn-default btn-xs remove"><span class="glyphicon glyphicon-trash"></span></button>').click(function () {
-     $(this).parent().detach();
-     }));
-     $(this).append($el);
-     }
-     }).sortable({
-     items: '.drop-item',
-     sort: function () {
-     // gets added unintentionally by droppable interacting with sortable
-     // using connectWithSortable fixes this, but doesn't allow you to customize active/hoverClass options
-     $(this).removeClass("active");
-     }
-     });
-    </script>
 
 </html>
