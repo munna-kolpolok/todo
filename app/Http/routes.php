@@ -23,4 +23,6 @@ require __DIR__.'/admin_routes.php';
 
 Route::get('/', 'TodoListController@index');
 Route::post('/to-do-store', 'TodoListController@store');
+Route::get('/status/{status}/{id}', 'TodoListController@status');
+
     

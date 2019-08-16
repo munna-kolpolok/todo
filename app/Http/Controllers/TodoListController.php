@@ -52,6 +52,13 @@ class TodoListController extends Controller
 		Work::create($request->all());
 		return redirect()->back();
 	}
+	public function status($status,$id)
+	{
+		$work=Work::find($id);
+		$work->status=$status;
+		$work->save();
+		return redirect()->back();
+	}
 
 
 }

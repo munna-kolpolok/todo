@@ -45,6 +45,8 @@
                           <div class="container">
                             <p>{{ $work->description or null }}</p>
                             <label><i class="fa fa-user" aria-hidden="true"></i></label>
+                            <a href="{{ url('status/2/'.$work->id) }}" class="btn-primary btn-sm">In Work</a>
+                            <a href="{{ url('status/3/'.$work->id) }}"class="btn-success btn-sm">Done</a>
                           </div>
                         </div>
                         @endif
@@ -52,12 +54,15 @@
                 </div>
                 <div class="col-md-4">
                     <p>In Work</p>
+
                     @foreach($works as $work)
                         @if($work->status=='2')
                         <div class="card">
                           <div class="container">
                             <p>{{ $work->description or null }}</p>
                             <label><i class="fa fa-user" aria-hidden="true"></i></label>
+                            <a href="{{ url('status/1/'.$work->id) }}" class="btn-primary btn-sm">Todo List</a>
+                            <a href="{{ url('status/3/'.$work->id) }}"class="btn-success btn-sm">Done</a>
                           </div>
                         </div>
                         @endif
@@ -71,6 +76,8 @@
                           <div class="container">
                             <p>{{ $work->description or null }}</p>
                             <label><i class="fa fa-user" aria-hidden="true"></i></label>
+                            <a href="{{ url('status/1/'.$work->id) }}" class="btn-primary btn-sm">Todo List</a>
+                            <a href="{{ url('status/2/'.$work->id) }}"class="btn-success btn-sm">In Work</a>
                           </div>
                         </div>
                         @endif
