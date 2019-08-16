@@ -109,7 +109,7 @@
         
         <div id="wrapper" class="clearfix">
 
-            <h4>To Do List</h4>
+            <!-- <p align="center">To Do List</p> -->
             <!-- <div class="row">
                 <div class="col-md-4">
                     <p>To Do List</p>
@@ -167,7 +167,9 @@
                     <ul id="sortable">
                         @foreach($works as $work)
                           @if($work->status=='1')
-                          <li class="ui-state-default"  data-id="{{ $work->id }}"></span>{{ $work->description or null }}
+                          <li class="ui-state-default"  data-id="{{ $work->id }}">{{ $work->description or null }}
+                            <br>
+                            <span><i class="fa fa-user fa-lg" aria-hidden="true"></i></label></span>
                             <a href="{{ url('status/2/'.$work->id) }}" class="btn-primary btn-sm">In Work</a>
                             <a href="{{ url('status/3/'.$work->id) }}"class="btn-success btn-sm">Done</a>
                           </li>
@@ -182,7 +184,9 @@
                         <p>In Work</p>
                         @foreach($works as $work)
                           @if($work->status=='2')
-                          <li class="ui-state-default"  data-id="{{ $work->id }}"></span>{{ $work->description or null }}
+                          <li class="ui-state-default"  data-id="{{ $work->id }}">{{ $work->description or null }}
+                            <br>
+                            <span><i class="fa fa-user fa-lg" aria-hidden="true"></i></label></span>
                             <a href="{{ url('status/1/'.$work->id) }}" class="btn-primary btn-sm">Todo List</a>
                             <a href="{{ url('status/3/'.$work->id) }}"class="btn-success btn-sm">Done</a>
                           </li>
@@ -196,7 +200,9 @@
                     <ul id="sortable-done">
                         @foreach($works as $work)
                           @if($work->status=='3')
-                          <li class="ui-state-default"  data-id="{{ $work->id }}"></span>{{ $work->description or null }}
+                          <li class="ui-state-default"  data-id="{{ $work->id }}">{{ $work->description or null }}
+                            <br>
+                            <span><i class="fa fa-user fa-lg" aria-hidden="true"></i></label></span>
                             <a href="{{ url('status/1/'.$work->id) }}" class="btn-primary btn-sm">Todo List</a>
                             <a href="{{ url('status/2/'.$work->id) }}"class="btn-success btn-sm">In Work</a>
                           </li>
