@@ -26,30 +26,19 @@ class TodoListController extends Controller
 	 */
 	public function index()
 	{
-		$works=Work::orderby('id','desc')->get();
+		$works=Work::orderby('serial_no','asc')->get();
 		return View('welcome',compact('works'));
 	}
 
-	/**
-	 * Show the form for creating a new account.
-	 *
-	 * @return \Illuminate\Http\Response
-	 */
-	public function create()
-	{
-		//
-	}
-
-	/**
-	 * Store a newly created account in database.
-	 *
-	 * @param  \Illuminate\Http\Request  $request
-	 * @return \Illuminate\Http\Response
-	 */
 	public function store(Request $request)
 	{
-		//print_r($request->all());die();
-		Work::create($request->all());
+		$works = Work::orderBy('id', 'desc')->get();
+        $serial_no = $works->max('serial_no') + 1;
+
+		$data=$request->all();
+		$data['serial_no'] = $serial_no;
+		Work::create($data);
+
 		return redirect()->back();
 	}
 	public function status($status,$id)
@@ -59,6 +48,25 @@ class TodoListController extends Controller
 		$work->save();
 		return redirect()->back();
 	}
+	// public function todoOrder(Request $request)
+	// {
+	// 	print_r($request->all());die();
+	// }
+	public function todoOrder(Request $request)
+    {
+        $works = Work::orderBy('serial_no', 'asc')->get();
+        foreach ($works as $work) {
+            $work->timestamps = false;
+            $id = $work->id;
+
+            foreach ($request->order as $order) {
+                if ($order['id'] == $id) {
+                    $work->update(['serial_no' => $order['position']]);
+                }
+            }
+        }
+        return response()->json('Update Successfully.', 200);
+    }
 
 
 }
